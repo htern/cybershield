@@ -1,0 +1,161 @@
+<div class="container">
+
+	<div class="form-container">
+
+		<form id="client-tool-details" class="form-horizontal user-profile-form" role="form">
+
+			<fieldset>
+
+				<legend><span data-bind="text: client_name"></span> Tool Details</legend>
+
+				<div class="form-group" data-bind="visible: failedValidation">
+					<label for="errMessage" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+	               		<div class="alert alert-danger">
+		               		<span data-bind="text: errorMsg"></span>
+	    				</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="vendor_name" class="col-sm-3 control-label">Vendor Name</label>
+					<div class="col-sm-6">
+						<select class="form-control" name="vendor_name" id="vendor_name" 
+							data-bind="options: vendorOptions, optionsText: 'vendor_name', optionsValue: 'vendor_id', value: vendorSelectedValue">
+						</select>
+					</div>
+<!-- 
+					<div class="col-sm-9">
+						<input type="text" class="form-control" name="vendor_name" id="vendor_name" data-bind="value: vendor_name">
+					</div>
+ -->
+				</div>
+
+				<div class="form-group">
+					<label for="product_name" class="col-sm-3 control-label">Product Name</label>
+					<div class="col-sm-6">
+						<select class="form-control" name="vendor_product_id" id="vendor_product_id" 
+							data-bind="options: productOptions, optionsText: 'product_name', optionsValue: 'vendor_product_id', optionCaption: 'Selecting...', value: productSelectedValue, enable: productOptions">
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="selected_tool_type" class="col-sm-3 control-label">Product Type</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="product_type" id="product_type" data-bind="value: selectedToolType" disabled>
+					</div>
+				</div>
+<!-- 
+				<div class="form-group">
+					<label for="tool_type" class="col-sm-3 control-label">Product Type</label>
+					<div class="col-sm-6">
+						<select class="form-control" name="tool_type" id="tool_type" 
+							data-bind="options: productTypeOptions, value: productTypeSelectedValue">
+						</select>
+					</div>
+				</div>
+ -->
+				<div class="form-group">
+					<label for="version_number" class="col-sm-3 control-label">Version Number</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="version_number" id="version_number" data-bind="value: version_number">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="purchase_date" class="col-sm-3 control-label">Purchased Date</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="purchase_date" id="purchase_date" 
+							placeholder="yyyy-mm-dd" data-bind="value: purchase_date">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="maint_expiration_date" class="col-sm-3 control-label">Maint Expiration Date</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="maint_expiration_date" id="maint_expiration_date" 
+							placeholder="yyyy-mm-dd" data-bind="value: maint_expiration_date">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="license_purchased" class="col-sm-3 control-label">License Purchased</label>
+					<div class="col-sm-1">
+						<input type="text" class="form-control" name="license_purchased" id="license_purchased" data-bind="value: license_purchased">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="license_used" class="col-sm-3 control-label">License Used</label>
+					<div class="col-sm-1">
+						<input type="text" class="form-control" name="license_used" id="license_used" data-bind="value: license_used">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="deployed_percentage" class="col-sm-3 control-label">Deployed Percentage</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="deployed_percentage" id="deployed_percentage" 
+							data-bind="options: deployedPercentage, optionsText: 'percent', optionsValue: 'val', 
+							value: deployedSelectedValue">
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="utilization_percentage" class="col-sm-3 control-label">Utilization Percentage</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="utilization_percentage" id="utilization_percentage" 
+							data-bind="options: utilizationPercentage, optionsText: 'percent', optionsValue: 'val', 
+							value: utilizationSelectedValue">
+ 						</select>
+					</div>
+				</div> 
+				
+			</fieldset>
+			
+			<br>
+
+			<fieldset>
+
+				<legend>Total Costs</legend>
+			
+				<div class="form-group">
+					<label for="purchase_cost" class="col-sm-3 control-label">Purchased Cost</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="purchase_cost" id="purchase_cost" 
+							data-bind="value: purchase_cost">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="depreciation_cost" class="col-sm-3 control-label">Depreciation Cost</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="depreciation_cost" id="depreciation_cost" 
+							data-bind="value: depreciation_cost">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="annual_maint_cost" class="col-sm-3 control-label">Annual Maintenance Cost</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="annual_maint_cost" id="annual_maint_cost" 
+							data-bind="value: annual_maint_cost">
+					</div>
+				</div>
+
+			</fieldset>
+			
+			<br><hr>
+				
+			<div class="form-group">
+			    <div class="col-sm-offset-3 col-sm-6">
+			      	<button type="button" class="update btn btn-default">Save Changes</button>
+			      	<button type="button" class="cancel btn btn-cancel">Cancel</button>
+			    </div>
+			</div>
+
+		</form>
+	</div>
+</div>

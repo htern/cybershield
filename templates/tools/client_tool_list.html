@@ -1,0 +1,38 @@
+<div id="client-tool-list" class="container">
+
+	<div class="panel panel-info">
+		<div class="panel-heading"><h3><span data-bind="text: client_name"></span> Tools</h3></div>
+		<div class="panel-body">
+			<br>
+			<a href="#/manageClients" id="client-list" role="button" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-arrow-left"></span> Client List</a>
+        	<a href="#/createNewClientTool" id="add-client-tool" role="button" class="btn btn-action pull-right">
+        		<span class="glyphicon glyphicon-plus"></span> Add Tool</a>
+		</div>
+
+  	  <table class="table table-hover">
+  	    <thead>
+    	  <tr>
+  	        <th>Vendor</th>
+    	    <th>Product Name</th>
+            <th>Product Type</th>
+            <th>Deployed %</th>
+            <th>Total Cost</th>
+            <th></th>
+  	      </tr>
+  	    </thead>
+
+        <tbody data-bind="foreach: tools">
+	  		<tr data-bind="attr:{ 'product_name': product_name }">
+  		      <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: vendor_name"></span></a></td>
+  		      <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: product_name"></span></a></td>
+	          <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: tool_type"></span></a></td>
+	          <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: deployed_percentage()*100"></span>%</a></td>
+	          <td><a data-bind="attr: { href: urlLink }">$<span data-bind="text: parseFloat(total_cost()).toLocaleString()"></span></a></td>
+	          <td><a href="#" class="delete-client-tool" data-bind="click: $root.deleteClientTool"><span class="glyphicon glyphicon-trash"></span></a></td>
+	  		</tr>
+  	    </tbody>
+
+  	  </table>
+  	</div>
+</div>

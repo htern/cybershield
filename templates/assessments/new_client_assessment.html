@@ -1,0 +1,79 @@
+<div class="container">
+
+	<div class="form-container">
+		<form id="new-assessment" class="form-horizontal" role="form">
+
+			<fieldset>
+
+				<legend>New Assessment</legend>
+
+				<div class="form-group" data-bind="visible: failedValidation">
+					<label for="errMessage" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+	               		<div class="alert alert-danger">
+		               		<span data-bind="text: errorMsg"></span>
+	    				</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="client_name" class="col-sm-3 control-label">Client Name</label>
+					<div class="col-sm-6">
+						<select class="form-control" name="client_name" id="client_name">
+						  <option value=null></option>
+						  <option value=1>SAIC</option>
+						  <option value=2>Boston Scientific Corporation</option>
+						  <option value=3>CyberSheath</option>
+						  <option value=4>GMO</option>
+						  <option value=5>Elbit Systems of America</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="security_standard" class="col-sm-3 control-label">Security Framework</label>
+					<div class="col-sm-6">
+						<select class="form-control" name="security_standard" id="security_standard">
+						  <option value=null></option>
+						  <option value=1>SANS (Version 4.1)</option>
+						  <option value=2>NIST 800-53 (Revision 4)</option>
+						  <option value=3>NIST Cybersecurity Framework</option>
+						  <option value=4>ISO 27001:2013</option>
+						  
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="assessment_date" class="col-sm-3 control-label">Assessment Start Date</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="assessment_date" id="assessment_date" placeholder="Assessment Start Date (yyyy-mm-dd)">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="assessor" class="col-sm-3 control-label">Assessor</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="assessor" id="assessor" placeholder="Assessor Name">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="client_contact" class="col-sm-3 control-label">Client Contact</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="client_contact" id="client_contact" placeholder="Client Point of Contact">
+					</div>
+				</div>
+
+			</fieldset>
+				
+			<div class="form-group">
+			    <div class="col-sm-offset-3 col-sm-6">
+			      	<button type="button" class="create btn btn-default">Create Assessment</button>
+			      	<button type="button" class="cancel btn btn-default">Cancel</button>
+			    </div>
+			</div>
+
+		</form>
+	</div>
+</div>

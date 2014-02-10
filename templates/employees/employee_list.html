@@ -1,0 +1,38 @@
+<div id="employee-list" class="container">
+
+	<div class="panel panel-info">
+		<div class="panel-heading"><h3><span data-bind="text: client_name"></span> Employees</h3></div>
+		<div class="panel-body">
+			<br>
+			<a href="#/manageClients" id="client-list" role="button" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-arrow-left"></span> Client List</a>
+        	<a href="#/createNewEmployee" id="add-employee" role="button" class="btn btn-action pull-right">
+        		<span class="glyphicon glyphicon-plus"></span> Add Employee</a>
+		</div>
+
+  	  <table class="table table-hover">
+  	    <thead>
+    	  <tr>
+  	        <th>Full Name</th>
+    	    <th>Title</th>
+            <th>Report to</th>
+            <th>Group</th>
+            <th>Security Expr</th>
+            <th></th>
+  	      </tr>
+  	    </thead>
+
+        <tbody data-bind="foreach: employees">
+	  		<tr data-bind="attr:{ 'employee_name': employee_name }">
+  		      <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: employee_name"></span></a></td>
+  		      <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: job_title"></span></a></td>
+	          <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: report_to"></span></a></td>
+	          <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: department"></span></a></td>
+	          <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: security_expr"></span></a></td>
+	          <td><a href="#" class="delete-employee" data-bind="click: $root.deleteEmployee"><span class="glyphicon glyphicon-trash"></span></a></td>
+	  		</tr>
+  	    </tbody>
+
+  	  </table>
+  	</div>
+</div>

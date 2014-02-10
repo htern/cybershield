@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="bootstrap/dist/js"/>
+	<classpathentry kind="src" path="bootstrap/js"/>
+	<classpathentry excluding="tests/vendor/|tests/|tests/unit/" kind="src" path="bootstrap/js-old"/>
+	<classpathentry excluding="vendor/|unit/" kind="src" path="bootstrap/js-old/tests"/>
+	<classpathentry kind="src" path="bootstrap/js-old/tests/unit"/>
+	<classpathentry kind="src" path="bootstrap/js-old/tests/vendor"/>
+	<classpathentry excluding="views/security_controls/|views/|views/home/|libs/|views/tools/|views/assessments/|models/" kind="src" path="js"/>
+	<classpathentry kind="src" path="js/libs"/>
+	<classpathentry kind="src" path="js/models"/>
+	<classpathentry excluding="security_controls/|home/|tools/|assessments/" kind="src" path="js/views"/>
+	<classpathentry kind="src" path="js/views/assessments"/>
+	<classpathentry kind="src" path="js/views/home"/>
+	<classpathentry kind="src" path="js/views/security_controls"/>
+	<classpathentry kind="src" path="js/views/tools"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

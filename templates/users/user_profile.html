@@ -1,0 +1,86 @@
+<div class="container">
+
+	<div class="form-container">
+
+		<form id="user-profile" class="form-horizontal user-profile-form" role="form">
+
+			<fieldset>
+
+				<legend>User Profile</legend>
+
+				<div class="form-group" data-bind="visible: failedValidation">
+					<label for="errMessage" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+	               		<div class="alert alert-danger">
+		               		<span data-bind="text: errorMsg"></span>
+	    				</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="user_name" class="col-sm-3 control-label">Username</label>
+					<div class="col-sm-6">
+				      	<p class="form-control-static"><span data-bind="text: username"></span></p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="first_name" class="col-sm-3 control-label">First Name</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="first_name" id="first_name" data-bind="value: first_name">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="last_name" class="col-sm-3 control-label">Last Name</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="last_name" id="last_name" data-bind="value: last_name">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="password" class="col-sm-3 control-label">Change Password</label>
+					<div class="col-sm-6">
+						<input type="password" class="form-control" name="password" id="password" data-bind="value: decPwd">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="confirm_password" class="col-sm-3 control-label">Re-Enter Password</label>
+					<div class="col-sm-6">
+						<input type="password" class="form-control" name="confirm_password" id="confirm_password">
+					</div>
+				</div>
+
+				<div class="form-group" data-bind="visible: admin">
+					<label for="client_name" class="col-sm-3 control-label">User of Client</label>
+					<div class="col-sm-6">
+						<select class="form-control" name="client_name" id="client_name">
+						  <option value=null></option>
+						  <option value=1>SAIC</option>
+						  <option value=2>Boston Scientific Corporation</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group" data-bind="visible: admin">
+					<label for="admin" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+						<label class="checkbox-inline">
+						  <input type="checkbox" name="admin" id="admin" data-bind="checked: admin">Administrator
+						</label>
+					</div>
+				</div>
+
+			</fieldset>
+				
+			<div class="form-group">
+			    <div class="col-sm-offset-3 col-sm-6">
+			      	<button type="button" class="update btn btn-default">Save Changes</button>
+			      	<button type="button" class="cancel btn btn-default">Cancel</button>
+			    </div>
+			</div>
+
+		</form>
+	</div>
+</div>

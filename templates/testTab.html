@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CyberShield</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- styles -->
+    <link href="../css/app.css" rel="stylesheet" type="text/css" />
+    <link href="../css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="../css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+
+  </head>
+
+  <body>
+
+      <div class="container">
+        <div class="tabbable">
+
+          <ul class="nav nav-tabs">
+<!--            <li class="active"><a href="#effect-by-control" data-toggle="tab">Effectiveness</a></li>
+            <li><a href="#implement-by-control" data-toggle="tab">Implementation</a></li>
+            <li><a href="#all-controls" data-toggle="tab">All Controls</a></li>
+            <li><a href="#csc01" data-toggle="tab">CSC-01</a></li>
+            <li><a href="#csc10" data-toggle="tab">CSC-10</a></li>
+-->
+            <li class="active"><a href="#getChart" id="2" data-toggle="tab">Effectiveness Chart</a></li>
+            <li><a href="#getChart" id="3" data-toggle="tab">Implementation Chart</a></li>
+            <li><a href="#getChart" id="0" data-toggle="tab">Average Score by Control</a></li>
+          </ul>
+
+
+          <div class="tab-content">
+
+            <div class="tab-pane" id="getChart">
+              <!-- empty tab content -->
+            </div>
+
+            <div class="tab-pane" id="effect-by-control">
+              <div class="container">
+
+                <p>Effectiveness by Control</p>
+                <img src="charts/effectiveness-by-control.jpg">
+              </div>
+            </div>
+
+            <div class="tab-pane" id="implement-by-control">
+              <div class="container">
+
+                <p>Implementation by Control</p>
+                <img src="charts/implement-by-control.jpg">
+              </div>
+            </div>
+
+            <div class="tab-pane" id="all-controls">
+              <div class="container">
+
+                <p>Average Score by Control</p>
+                <img src="charts/scores-and-count-by-control.jpg">
+              </div>
+            </div>
+
+            <div class="tab-pane" id="csc01">
+              <div class="container">
+                <img src="charts/csc01.jpg">
+              </div>
+            </div>
+
+            <div class="tab-pane" id="csc10">
+              <div class="container">
+                <img src="charts/csc10.jpg">
+              </div>
+            </div>
+
+          </div>  <!-- tab-content -->
+
+        </div>  <!-- tabbable -->
+      </div>   <!-- container -->
+
+      <!-- main display area -->
+      <div id="mainView2"></div>
+
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/loaddata3.js"></script>
+
+
+  </body>
+</html>

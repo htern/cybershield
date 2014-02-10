@@ -1,0 +1,24 @@
+  	<div class="container">
+  	  <table class="table table-striped table-bordered table-hover table-condensed instances">
+  	    <thead>
+    	  <tr>
+    	    <th><a href="#" class="sortable">Control Family (New!!!)</a></th>
+  	        <th><a href="#" class="sortable"># of Controls</a></th>
+            <th><a href="#" class="sortable">% Complete</a></th>
+            <th><a href="#" class="sortable">Average Score</a></th>
+  	      </tr>
+  	    </thead>
+
+        <tbody>
+          <% _.each(controlfamilies, function(control_family) { %>
+	  		<tr>
+  		      <td><a href="#/controlQuestionList/<%= control_family.get('control_family_id') %>"><b><%= control_family.get('identifier') %></b>-<%= control_family.get('control_family_name') %></a></td>
+  		      <td><%= control_family.get('controlCnt') %></td>
+	          <td></td>
+	          <td><%= control_family.get('avg_score') === null ? 0 : control_family.get('avg_score') %></td>
+	  		</tr>
+          <% }); %>
+  	    </tbody>
+
+  	  </table>
+    </div>

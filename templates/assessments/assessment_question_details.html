@@ -1,0 +1,381 @@
+ <div id="question-detail" class="container">
+
+	<div class="form-container">
+
+		<form class="form-horizontal" role="form">
+
+			<fieldset>
+
+				<legend><b>Assessment Information</b></legend>
+
+				<div class="form-group">
+				    <label class="col-sm-3 control-label">Client Name</label>
+				    <div class="col-sm-9">
+				      	<p class="form-control-static"><span data-bind="text: client_name"></span></p>
+				    </div>
+				</div>
+
+				<div class="form-group">
+				    <label class="col-sm-3 control-label">Security Framework</label>
+				    <div class="col-sm-9">
+				      	<p class="form-control-static"><span data-bind="text: standard_type"></span></p>
+				    </div>
+				</div>
+
+				<div class="form-group">
+					<label for="control_number" class="col-sm-3 control-label">Control Name</label>
+					<div class="col-sm-9">
+				      	<p class="form-control-static"><span data-bind="text: control_number"></span> <span data-bind="text: control_name"></span></p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="control_desc" class="col-sm-3 control-label">Control Description</label>
+					<div class="col-sm-9">
+				      	<p class="form-control-static"><span data-bind="text: control_desc"></span></p>
+					</div>
+				</div>
+
+
+			</fieldset>
+
+			<br>
+
+			<fieldset>
+				<legend><b>Question Details</b></legend>
+
+				<div class="form-group">
+					<label for="showhidesupplement" class="col-sm-3 control-label"></label>
+					<div class="col-sm-9">
+						<a href="javascript:showOrHideSupplemental();">show/hide Supplemental Guidance</a>
+					</div>
+				</div>
+
+				<div id="showOrHideSupplemental" style="display: none">
+
+					<div class="form-group">
+						<label for="supplemental" class="col-sm-3 control-label">Supplemental Guidance</label>
+						<div class="col-sm-9">
+					      	<div class="form-control-static" style="white-space: pre-wrap;" 
+					      		data-bind="html: supplemental">
+					      	</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<label for="control_question" class="col-sm-3 control-label">Control Question</label>
+					<div class="col-sm-9">
+				      	<div class="alert alert-info" style="white-space: pre-wrap;" 
+				      		data-bind="html: assess_question">
+				      	</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="control_question" class="col-sm-3 control-label">Final Score</label>
+ 					<div class="col-sm-2">
+				      	<div class="alert alert-info">
+				        	<p><span data-bind="text: finalComplianceScore"></span></p>
+				      	</div>
+					</div>
+
+ 					<div class="col-sm-2">
+						<label class="control-label">Status</label>
+						<br>
+						<input type="checkbox" name="done" id="done" data-bind="checked: complete">Control Complete
+					</div>
+					
+ 					<div class="col-sm-2" data-bind="visible: !complete()">
+				      	<div class="alert alert-info">
+				        	<span style="text-align: center; vertical-align: middle;">
+				        		<h4><span data-bind="text: status"></span></span></h4>
+				        	</span>
+				      	</div>
+					</div>
+
+ 					<div class="col-sm-2" data-bind="visible: complete">
+				      	<div class="alert alert-success">
+				        	<span style="text-align: center; vertical-align: middle;">
+				        		<h4>Complete</h4>
+				        	</span>
+				      	</div>
+					</div>
+
+ 					<div class="col-sm-2" data-bind="visible: dfars">
+				      	<div class="alert alert-warning">
+				        	<span style="text-align: center; vertical-align: middle;">
+				        		<p><b>DFARS</b></p>
+				        	</span>
+				      	</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-3">
+<!-- 
+			<a data-bind="attr: { href: last_url }" role="button" class="btn btn-success pull-left"><span class="glyphicon glyphicon-arrow-left"></span> back to Assessment2</a>
+ -->
+				      	<button type="button" class="cancel btn btn-success"><span class="glyphicon glyphicon-arrow-left"></span> Back to Assessment</button>
+					</div>
+ 					<div class="col-sm-4" data-bind="visible: !complete()">
+				      	<button type="button" class="mark btn btn-primary"><span class="glyphicon glyphicon-check"></span> Mark Control Complete</button>
+					</div>
+ 					<div class="col-sm-7" data-bind="visible: complete">
+				      	<button type="button" class="unmark btn btn-danger pull-right"><span class="glyphicon glyphicon-unchecked"></span> Un-Mark Control Complete</button>
+					</div>
+				</div>
+				
+			</fieldset>
+
+			<fieldset>
+				<legend><b>Manual Process</b></legend>
+				<div class="form-group">
+					<label for="manual_process_scoring" class="col-sm-3 control-label">Manual Process</label>
+					<div class="col-sm-2">
+						<label><small><em>% Address</em></small></label>
+						<select class="form-control" name="manual_coverage" id="manual_coverage" 
+							data-bind="options: manualProcessCoverage, optionsText: 'coverage', optionsValue: 'val', 
+							value: selectedManualProcessCoverageValue">
+						</select>
+					</div>
+					<div class="col-sm-2">
+						<label><small><em><span data-toggle="tooltip" data-placement="top" title="No-0; Partially-1.5; Yes-3">
+							Compliance Rating</span></em></small></label>
+						<select class="form-control" name="manual_compliance_rating" id="manual_compliance_rating" 
+							data-bind="options: manualComplianceRating, optionsText: 'optionName', optionsValue: 'val', 
+							value: selectedManualComplianceValue">
+ 						</select>
+					</div>
+					<div class="col-sm-2">
+						<label><small><em><span class="tips" title="No-0; Partially-1; Yes-2">
+							Documentation Rating</span></em></small></label>
+						<select class="form-control" name="manual_documentation_rating" id="manual_documentation_rating" 
+							data-bind="options: manualDocumentationRating, optionsText: 'optionName', optionsValue: 'val', 
+							value: selectedManualDocumentationValue">
+						</select>
+					</div>
+					<div class="col-sm-2 pull-right">
+						<label>Manual Score</label>
+						<input type="text" class="form-control" name="manaul_process_score" id="manaul_process_score" 
+							data-bind="value: manualComplianceScore" disabled>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="manual_process_desc" class="col-sm-3 control-label"></label>
+					<div class="col-sm-9">
+						<textarea class="form-control" rows=6 name="manual_process_desc" id="manual_process_desc" placeholder="Describe manual process here" data-bind="text: manual_process"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-3 col-sm-9">
+						<a href="#staff-responsible" data-toggle="modal" id="add-staff-responsible" 
+							role="button" class="btn btn-action pull-left">
+							<span class="glyphicon glyphicon-plus"></span> Add Employee Responsible</a>
+
+				      	<button type="button" class="cancel btn btn-cancel pull-right">Cancel</button>
+				      	<div class="pull-right">&nbsp;</div>
+				      	<button type="button" class="update btn btn-default pull-right">Save and Continue</button>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="employee_responsible" class="col-sm-3 control-label"></label>
+					<div class="col-sm-9">
+			 			<table class="table table-hover table-striped">
+			            	<thead>
+			              		<tr>
+			              			<th>Employees Responsible</th>
+								</tr>
+			            	</thead>
+			            	<tbody id="employeeResponsible">
+			            	</tbody>
+			          	</table>		
+					 </div>
+				</div>
+				
+			</fieldset>
+
+			<fieldset>
+				<legend><b>Automated Process</b></legend>
+				<div class="form-group">
+					<label for="auto_process_scoring" class="col-sm-3 control-label">Security Tool</label>
+					<div class="col-sm-2">
+						<label><small><em>% Address</em></small></label>
+						<select class="form-control" name="auto_coverage" id="auto_coverage" 
+							data-bind="options: autoProcessCoverage, optionsText: 'coverage', optionsValue: 'val', 
+							value: selectedAutoProcessCoverageValue">
+						</select>
+					</div>
+					<div class="col-sm-2">
+						<label><small><em><span data-toggle="tooltip" title="No-0; Partially-1.5; Yes-3">
+							Compliance Rating</span></em></small></label>
+						<select class="form-control" name="auto_compliance_rating" id="auto_compliance_rating" 
+							data-bind="options: autoComplianceRating, optionsText: 'optionName', optionsValue: 'val', 
+							value: selectedAutoComplianceValue">
+ 						</select>
+					</div>
+					<div class="col-sm-2">
+						<label><small><em><span data-toggle="tooltip" title="No-0; Partially-1; Yes-2">
+							Documentation Rating</span></em></small></label>
+						<select class="form-control" name="auto_documentation_rating" id="auto_documentation_rating" 
+							data-bind="options: autoDocumentationRating, optionsText: 'optionName', optionsValue: 'val', 
+							value: selectedAutoDocumentationValue">
+						</select>
+					</div>
+					<div class="col-sm-2 pull-right">
+						<label>Automated Score</label>
+						<input type="text" class="form-control" name="auto_process_score" id="auto_process_score" 
+							data-bind="value: autoComplianceScore" disabled>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="auto_process_desc" class="col-sm-3 control-label"></label>
+					<div class="col-sm-9">
+						<textarea class="form-control" rows=6 name="auto_process_desc" id="auto_process_desc" placeholder="Describe automated process here" data-bind="text: auto_process"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-3 col-sm-9">
+						<a href="#tool-responsible" data-toggle="modal" id="add-tool-responsible" 
+							role="button" class="btn btn-action pull-left">
+							<span class="glyphicon glyphicon-plus"></span> Add Security Tool</a>
+
+				      	<button type="button" class="cancel btn btn-cancel pull-right">Cancel</button>
+				      	<div class="pull-right">&nbsp;</div>
+				      	<button type="button" class="update btn btn-default pull-right">Save and Continue</button>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="security_tool_responsible" class="col-sm-3 control-label"></label>
+					<div class="col-sm-9">
+			 			<table class="table table-hover table-striped">
+			            	<thead>
+			              		<tr>
+			              			<th>Security Tools</th>
+								</tr>
+			            	</thead>
+			            	<tbody id="securityToolResponsible">
+			            	</tbody>
+			          	</table>		
+					 </div>
+				</div>
+				
+			</fieldset>
+
+			<fieldset>
+				<legend><b>Notes</b></legend>
+				
+				<div class="form-group">
+					<label for="add_notes_controls" class="col-sm-3 control-label">Internal Working Notes</label>
+					<div class="col-sm-9">
+  						<a href="#interview-notes" data-toggle="modal" id="add-interview-notes" role="button" class="btn btn-action pull-left">
+  							<span class="glyphicon glyphicon-plus"></span> Add Interview Notes</a>
+						<br><br>
+						<a href="javascript:showOrHideNotes();">show/hide Interview Notes</a>
+					</div>
+				</div>
+				
+				<div id="showOrHideNotes" style="display: block">
+				
+				<div class="form-group">
+					<label for="interview_notes" class="col-sm-3 control-label"></label>
+					<div class="col-sm-9">
+			 			<table class="table table-hover table-striped">
+			            	<thead>
+			              		<tr>
+			              			<th>Interview Notes</th>
+								</tr>
+			            	</thead>
+			            	<tbody id="interviewNotes">
+			            	</tbody>
+			          	</table>		
+					 </div>
+				</div>
+				
+				</div>
+				
+				<div class="form-group">
+					<label for="notes" class="col-sm-3 control-label">Official Response Notes</label>
+					<div class="col-sm-9">
+						<textarea class="form-control" rows=10 name="response_notes" id="response_notes" data-bind="text: response_notes"></textarea>
+					</div>
+				</div>
+<!-- 
+				<div class="form-group">
+					<label for="scores" class="col-sm-3 control-label">Assessment Result</label>
+					<div class="col-sm-9">
+						<label class="checkbox-inline">
+						  <input type="checkbox" name="score1" id="score1" data-bind="checked: is_process_resident">Process Resident
+						</label>
+						<label class="checkbox-inline">
+						  <input type="checkbox" name="score2" id="score2" data-bind="checked: is_satisfy_partially">Satisfies Partially
+						</label>
+						<label class="checkbox-inline">
+						  <input type="checkbox" name="score3" id="score3" data-bind="checked: is_satisfy_fully">Satisfies Fully
+						</label>					
+						<label class="checkbox-inline">
+						  <input type="checkbox" name="score4" id="score4" data-bind="checked: is_documented">Documented
+						</label>
+						<label class="checkbox-inline">
+						  <input type="checkbox" name="score5" id="score5" data-bind="checked: is_understood">Effective & Understood
+						</label>					
+					</div>
+				</div>
+ -->
+<!-- 
+				<div class="form-group">
+					<label for="done" class="col-sm-3 control-label"></label>
+					<div class="col-sm-9">
+						<label class="checkbox-inline">
+						  <input type="checkbox" name="done" id="done" data-bind="checked: complete">Complete
+						</label>
+					</div>
+				</div>
+ -->
+			</fieldset>
+				
+			<div class="form-group">
+			    <div class="col-sm-offset-3 col-sm-9">
+			      	<button type="button" class="cancel btn btn-cancel pull-right">Cancel</button>
+			      	<div class="pull-right">&nbsp;</div>
+			      	<button type="button" class="update btn btn-default pull-right">Save and Continue</button>
+			    </div>
+			</div>
+
+		</form>
+	</div>
+	
+</div>
+
+
+<script language="javascript">
+    function showOrHideSupplemental() {
+        var div = document.getElementById("showOrHideSupplemental");
+        if (div.style.display == "block") {
+            div.style.display = "none";
+        }
+        else {
+            div.style.display = "block";
+        }
+    }
+
+    function showOrHideNotes() {
+        var div = document.getElementById("showOrHideNotes");
+        if (div.style.display == "block") {
+            div.style.display = "none";
+        }
+        else {
+            div.style.display = "block";
+        }
+    } 
+</script>
+
+
+

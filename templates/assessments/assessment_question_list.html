@@ -1,0 +1,94 @@
+<div id="question-list" class="container">
+ 	<div class="panel panel-info">
+		<div class="panel-heading"><h3><span data-bind="text: control_function_name"></span>: <span data-bind="text: control_category_name"></span></h3></div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-sm-5">
+				    <div class="form-container">
+   					 <form class="form-horizontal" role="form">
+	      				<fieldset>
+				        <div class="form-group">
+							<label class="col-sm-5 control-label">Assessment Date:</label>
+							<div class="col-sm-7">
+								<p class="form-control-static"><span data-bind="text: start_date"></span></p>
+							</div>
+						</div>
+						
+				        <div class="form-group">
+							<label class="col-sm-5 control-label">Assessor:</label>
+							<div class="col-sm-7">
+								<p class="form-control-static"><span data-bind="text: assessed_by"></span></p>
+							</div>
+						</div>
+					</fieldset>
+					</form>
+					</div>			
+				</div>
+
+				<div class="col-sm-4">
+				    <div class="form-container">
+   					 <form class="form-horizontal" role="form">
+	      				<fieldset>
+				        <div class="form-group">
+							<label class="col-sm-5 control-label">% Complete</label>
+							<div class="col-sm-7">
+								<p class="form-control-static"><span data-bind="text: complete_percentage"></span> %</p>
+							</div>
+						</div>
+						
+				        <div class="form-group">
+							<label class="col-sm-5 control-label">Average Score</label>
+							<div class="col-sm-7">
+								<p class="form-control-static"><span data-bind="text: avg_score"></span></p>
+							</div>
+						</div>						
+						</fieldset>
+					</form>
+					</div>
+				</div>
+				
+				<div class="col-sm-3">
+				    <div class="form-container">
+   					 <form class="form-horizontal" role="form">
+	      				<fieldset>
+				        <div class="form-group">
+							<label class="col-sm-6 control-label"># of Controls</label>
+							<div class="col-sm-6">
+								<p class="form-control-static"><span data-bind="text: total_controls"></span></p>
+							</div>
+						</div>
+						</fieldset>
+					</form>
+					</div>
+				</div>
+			</div>
+			
+			<hr>
+
+			<a data-bind="attr: { href: last_url }" id="client-assessment" role="button" class="btn btn-success pull-left"><span class="glyphicon glyphicon-arrow-left"></span> Assessment Summary</a>
+		</div>
+ 
+      <table class="table table-bordered table-condensed instances">
+        <thead>
+          <tr>
+            <th><a href="#" class="sortable">Control Number</a></th>
+            <th><a href="#" class="sortable">Control Name / Assessment Question</a></th>
+            <th><a href="#" class="sortable">Status</a></th>
+            <th><a href="#" class="sortable">Score</a></th>
+          </tr>
+        </thead>
+
+        <tbody data-bind="foreach: questions">
+			<tr>
+    			<td rowspan="2"><a data-bind="attr: { href: urlLink }"><span data-bind="text: control_number"></span></a></td>
+    		    <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: control_name"></span> <span class="label label-warning" data-bind="visible: DFARS()=='1'"><small>DFARS</small></span></a></td>
+	            <td rowspan="2"><span data-bind="text: status"></span></td>
+	            <td rowspan="2"><span data-bind="text: score"></span></td>
+	    	</tr>
+	    	<tr>
+    		    <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: assess_question"></span></a></td>
+	    	</tr>
+  	    </tbody>
+  	  </table>
+    </div>
+</div>

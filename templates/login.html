@@ -1,0 +1,27 @@
+<div class="container" id="login-form">
+    <div class="row login-screen">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+            <h2>Login</h2>
+
+            <form class="login-form" data-bind="submit: handleLogin" >
+                <fieldset>
+                
+                	<div class="alert alert-danger" data-bind="visible: visible">
+                		<span data-bind="text: errorMsg"></span>
+                	</div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Email address" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" required>
+                    </div>
+                    <input type="submit" value="Login" class="btn"/>
+                </fieldset>
+            </form>
+        </div>
+    </div><!-- end .row -->
+</div><!-- end .container -->

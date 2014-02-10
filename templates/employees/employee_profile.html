@@ -1,0 +1,179 @@
+<div class="container">
+
+	<div class="form-container">
+
+		<form id="employee-profile" class="form-horizontal user-profile-form" role="form">
+
+			<fieldset>
+
+				<legend>Employee Profile</legend>
+
+				<div class="form-group" data-bind="visible: failedValidation">
+					<label for="errMessage" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+	               		<div class="alert alert-danger">
+		               		<span data-bind="text: errorMsg"></span>
+	    				</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="client_name" class="col-sm-3 control-label">Company Name</label>
+					<div class="col-sm-9">
+				      	<p class="form-control-static"><span data-bind="text: client_name"></span></p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="employee_name" class="col-sm-3 control-label">Employee Name</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" name="employee_name" id="employee_name" data-bind="value: employee_name">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="employee_type" class="col-sm-3 control-label">Employee Type</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="employee_type" id="employee_type" 
+							data-bind="options: employeeTypeOptions, value: employeeTypeSelectedValue">
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="job_title" class="col-sm-3 control-label">Job Title</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" name="job_title" id="job_title" data-bind="value: job_title">
+					</div>
+					<div class="col-sm-2 pull-right">
+						<input type="text" class="form-control" name="promotion_date" id="promotion_date" 
+							placeholder="yyyy-mm-dd" data-bind="value: last_promotion_date">
+					</div>
+					<label for="promotion_date" class="control-label pull-right">Last Promotion Date</label>
+				</div>
+
+				<div class="form-group">
+					<label for="report_to" class="col-sm-3 control-label">Report to</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" name="report_to" id="report_to" data-bind="value: report_to">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="department" class="col-sm-3 control-label">Group / Department</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" name="department" id="department" data-bind="value: department">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="fully_burdened_rate" class="col-sm-3 control-label">Fully Burdened Rate</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="fully_burdened_rate" id="fully_burdened_rate" 
+							data-bind="value: fully_burdened_rate">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="time_allocation" class="col-sm-3 control-label"><br>
+					Job Responsibility</label>
+					<div class="col-sm-2">
+						<label><em>Security Ops %</em></label>
+						<select class="form-control" name="security_ops_percentage" id="security_ops_percentage" 
+							data-bind="options: securityOpsPercentage, optionsText: 'percent', optionsValue: 'val', 
+							value: securityOpsSelectedValue">
+						</select>
+					</div>
+
+					<div class="col-sm-2">
+						<label><em>Other %</em></label>
+						<select class="form-control" name="other_tasks_percentage" id="other_tasks_percentage" 
+							data-bind="options: otherOpsPercentage, optionsText: 'percent', optionsValue: 'val', 
+							value: otherOpsSelectedValue">
+ 						</select>
+					</div>
+
+				</div>
+				
+				<div class="form-group">
+					<label for="phone_number"" class="col-sm-3 control-label">Phone</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="phone_number" id="phone_number" data-bind="value: phone_number">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="email_address" class="col-sm-3 control-label">Email Address</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" name="email_address" id="email_address" data-bind="value: email_address">
+					</div>
+				</div>
+
+			</fieldset>
+			
+			<br>
+
+			<fieldset>
+
+				<legend>Employee Credentials</legend>
+			
+				<div class="form-group">
+					<label for="education_level" class="col-sm-3 control-label">Education Level</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="education_level" id="education_level" 
+							data-bind="options: educationLevelOptions, value: educationLevelSelectedValue">
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="certification" class="col-sm-3 control-label">Certification</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" name="certification" id="certification" data-bind="value: certification">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="company_start_date" class="col-sm-3 control-label">Company Start Date</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="company_start_date" id="company_start_date" 
+							placeholder="yyyy-mm-dd" data-bind="value: company_start_date">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="security_start_date" class="col-sm-3 control-label">Security Start Date</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="security_start_date" id="security_start_date" 
+							placeholder="yyyy-mm-dd" data-bind="value: security_start_date">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="total_years_expr" class="col-sm-3 control-label">Total Years of Experience</label>
+					<div class="col-sm-1">
+						<input type="text" class="form-control" name="total_years_expr" id="total_years_expr" data-bind="value: total_years_expr">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="security_expr" class="col-sm-3 control-label">Security Experience</label>
+					<div class="col-sm-1">
+						<input type="text" class="form-control" name="security_expr" id="security_expr" data-bind="value: security_expr">
+					</div>
+				</div>
+
+			</fieldset>
+			
+			<br><hr>
+				
+			<div class="form-group">
+			    <div class="col-sm-offset-3 col-sm-6">
+			      	<button type="button" class="update btn btn-default">Save Changes</button>
+			      	<button type="button" class="cancel btn btn-cancel">Cancel</button>
+			    </div>
+			</div>
+
+		</form>
+	</div>
+</div>

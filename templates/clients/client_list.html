@@ -1,0 +1,33 @@
+<div id="client-list" class="container">
+
+	<div class="panel panel-info">
+		<div class="panel-heading"><h3>Clients</h3></div>
+		<div class="panel-body">
+        	<a href="#/createNewClient" id="add-client" role="button" class="btn btn-cancel pull-right">
+        		<span class="glyphicon glyphicon-plus"></span> New Client</a>
+		</div>
+
+  	  <table class="table table-striped table-bordered table-hover table-condensed instances">
+  	    <thead>
+    	  <tr>
+  	        <th><a href="#" class="sortable">Client Name</a></th>
+    	    <th><a href="#" class="sortable">Location</a></th>
+            <th><a href="#" class="sortable">Assessments</a></th>
+            <th><a href="#" class="sortable">Employees</a></th>
+            <th><a href="#" class="sortable">Tools</a></th>
+  	      </tr>
+  	    </thead>
+
+        <tbody data-bind="foreach: clients">
+	  		<tr data-bind="attr:{ 'client_id': client_id, 'client_name': client_name }">
+  		      <td><a class="row_selected" data-bind="attr: { href: urlLink }"><span data-bind="text: client_name"></span></a></td>
+  		      <td><a class="row_selected" data-bind="attr: { href: urlLink }"><span data-bind="text: city"></span>, <span data-bind="text: state"></span></a></td>
+	          <td><a data-bind="attr: { href: assessmentsLink }" class="row_selected btn btn-default">Assessments</a></td>
+	          <td><a data-bind="attr: { href: employeesLink }" class="row_selected btn btn-default">Manage Employees</a></td>
+	          <td><a data-bind="attr: { href: toolsLink }" class="row_selected btn btn-default">Manage Tools</a></td>
+	  		</tr>
+  	    </tbody>
+
+  	  </table>
+  	</div>
+</div>
