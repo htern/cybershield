@@ -65,8 +65,14 @@
 			
 			<hr>
 
-			<a href="#/assessments" id="client-assessment" role="button" class="btn btn-success pull-left"><span class="glyphicon glyphicon-arrow-left"></span> Client Assessment</a>
-        	<a href="#/dashboard" id="dashboard" role="button" class="btn btn-cancel pull-right">Dashboard</a>
+			<a href="#/assessments" id="client-assessment" role="button" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-circle-arrow-left"></span> Client Assessment</a>
+				
+        	<a href="#/dashboard/scoring" id="dashboard" role="button" class="btn btn-primary btn-labeled pull-right" data-bind="visible: assess_id()=='16'">
+        		<span class="btn-label"><i class="glyphicon glyphicon-stats"></i></span>Dashboard</a>
+
+        	<a href="#/dashboard/mbta_scoring" id="dashboard" role="button" class="btn btn-primary btn-labeled pull-right" data-bind="visible: assess_id()=='26'">
+        		<span class="btn-label"><i class="glyphicon glyphicon-stats"></i></span>Dashboard</a>
 		</div>
 
   	  <table class="table table-striped table-bordered table-hover table-condensed instances">
@@ -83,7 +89,7 @@
   	    </thead>
  
         <tbody data-bind="foreach: categories">
-	  		<tr data-bind="attr:{'control_category_id': control_category_id, 'control_function_name': control_function_name, 'control_category_name': control_category_name, 'controlCnt':controlCnt, 'complete_percentage':complete_percentage, 'avg_score':avg_score, urlLink: urlLink }">
+	  		<tr data-bind="attr:{'control_category_id': control_category_id, 'control_function_name': control_function_name, 'identifier': identifier, 'control_category_name': control_category_name, 'controlCnt':controlCnt, 'complete_percentage':complete_percentage, 'avg_score':avg_score, urlLink: urlLink }">
   		      <td><a class="cat_row" data-bind="attr: { href: urlLink }"><span data-bind="text: control_function_name"></span></a></td>
   		      <td><a class="cat_row" data-bind="attr: { href: urlLink }"><b><span data-bind="text: identifier"></span></b>-<span data-bind="text: control_category_name"></span> <span class="label label-warning" data-bind="visible: dfarsCnt()!='0'"><small>DFARS (<span data-bind="text: dfarsCnt"></span>)</small></span></a></td>
   		      <td><span data-bind="text: controlCnt"></span></td>

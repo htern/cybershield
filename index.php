@@ -44,13 +44,15 @@ session_start();
 include ('./templates/header.html');
 ?>
 
-  <!-- main display area -->
-  <div id="mainView"></div>
+<!-- main display area -->
+<div id="mainView"></div>
 
-  <!-- main display sub-page area -->
-<!--  <div class="container">  -->
-    <div id="subTabPage"></div>
-<!--  </div> -->
+<!-- main display sub-page area -->
+<div id="subTabPage"></div>
+
+<div class="container"> 
+	<div id="chartArea"</div>
+</div>
 
 <?php
 include ('./templates/footer.html');

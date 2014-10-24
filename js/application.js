@@ -116,6 +116,6 @@ $(document).ready(function() {
 
     $(".tips").tooltip({
       placement: "top"
-    })
+    });
       
-})
+});

@@ -35,7 +35,9 @@ define([
 
   "views/control_categories/CategoriesByAssessmentView",
   "views/assessments/AssessmentQuestionsView",
-  "views/assessments/AssessmentQuestionDetailsView"
+  "views/assessments/AssessmentQuestionDetailsView",
+  
+  "views/dashboard/DashboardByAssessmentView"
 ], 
 
 function($, _, Backbone, MainView, HomeView, ClearMainViewContent, ClearSubPageContent, 
@@ -45,7 +47,8 @@ function($, _, Backbone, MainView, HomeView, ClearMainViewContent, ClearSubPageC
             ManageClientsView,
             CreateNewUserView, UpdateUserView, ManageUsersView,
             ManageEmployeesView, EmployeeProfileView, 
-            CategoriesByAssessmentView, AssessmentQuestionsView, AssessmentQuestionDetailsView) {
+            CategoriesByAssessmentView, AssessmentQuestionsView, AssessmentQuestionDetailsView,
+            DashboardByAssessmentView ) {
   
     Backbone.View.prototype.close = function() {
 //        console.log('Closing view ' + this);
@@ -62,6 +65,7 @@ function($, _, Backbone, MainView, HomeView, ClearMainViewContent, ClearSubPageC
     routes: {
       // home page
       '': 'showHome',
+      "dashboard/:chart_name": "showDashboard",
       // control categories
       "controlCategoryList/:assessment_id": "showCategoriesByAssessment",
       // clients
@@ -129,7 +133,11 @@ function($, _, Backbone, MainView, HomeView, ClearMainViewContent, ClearSubPageC
     showAssessmentQuestions: function(category_id) {   
     	if (utils.readCookie("USER")) {
 	        var assessmentQuestionsView = this.showView(new AssessmentQuestionsView({category_id: category_id}));
-	        assessmentQuestionsView.refresh();
+	        assessmentQuestionsView.getCategoryStats();
+	        // getCategoryStats will call refresh()
+//	        assessmentQuestionsView.refresh();
+	        
+// can remove controlTabsView before release 	       
 //	        var controlTabsView = new ControlTabsView();
 //	        controlTabsView.render();
     	} else {
@@ -220,8 +228,19 @@ function($, _, Backbone, MainView, HomeView, ClearMainViewContent, ClearSubPageC
     	};
     },
 
+    showDashboard: function(chartName) {
+    	if (utils.readCookie("USER")) {
+	        var dashboardByAssessmentsView = this.showView(new DashboardByAssessmentView());
+	        dashboardByAssessmentsView.refresh(chartName);
+    	} else {
+    		window.location = "#";
+    	};
+    },
+        
     showCategoriesByAssessment: function(clientAssessID) {
     	if (utils.readCookie("USER")) {
+	        var clearMainViewContent = new ClearMainViewContent();
+	        clearMainViewContent.render();
 	        var categoriesByAssessmentsView = this.showView(new CategoriesByAssessmentView());
 	        categoriesByAssessmentsView.refresh(clientAssessID);
     	} else {

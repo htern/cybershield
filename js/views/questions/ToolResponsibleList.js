@@ -5,7 +5,7 @@ define([
 	'views/questions/ToolResponsibleItem'
 ], 
 
-function($, _, Backbone, EmployeeResponsibleItem){
+function($, _, Backbone, ToolResponsibleItem){
 
 	var ToolResponsibleList = Backbone.View.extend({
 

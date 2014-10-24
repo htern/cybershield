@@ -45,11 +45,14 @@ $(document).ready(function() {
                     chart.series[0].remove();
                 }
 
+                console.log(aData);
+
                 // re-set categories for X axe
                 var categories = [];
                 $.each(aData.categories, function(idx, res) {
                     categories.push(res);
                 });
+                console.log(categories);
                 chart.xAxis[0].setCategories(categories);
                 chart.yAxis[0].axisTitle.attr({
                     text: 'Number of Control'
@@ -61,6 +64,9 @@ $(document).ready(function() {
                     seriesValData.push([res.name, parseFloat(res.val)]);
                 });
 
+                console.log(seriesValData);
+                console.log(aData);
+                console.log(aData.name);
                 var seriesValues = {
                     name: aData.name,
                     data: seriesValData,

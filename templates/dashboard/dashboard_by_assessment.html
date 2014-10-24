@@ -1,0 +1,38 @@
+<div id="assessment-dashboard" class="container">
+	<div class="panel panel-info">
+<!-- 	
+		<div class="panel-heading"><h3>Ellbit Systems of America: NIST 800-53 (Rev 4)</h3></div>
+ -->
+		<div class="panel-heading"><h3><span data-bind="text: client_name"></span>: <span data-bind="text: standard_type"></span></h3></div>
+
+ 		<div class="panel-body">
+
+			<a data-bind="attr: { href: last_url }" role="button" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-circle-arrow-left"></span> Assessment Summary</a>
+
+		    <ul class="nav nav-pills navbar-right">
+		      <li class="dropdown">
+		        <a id="drop6" role="button" data-toggle="dropdown" href="#">Graphs / Charts <b class="caret"></b></a>
+		        <ul id="menu3" class="dropdown-menu" role="menu">
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/scoring" data-bind="visible: assess_id()=='16'">Scoring by Control Category</a></li>
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/securityRisk" data-bind="visible: assess_id()=='16'">Overall Security Risk Distribution</a></li>
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/assessmentDrilldown" data-bind="visible: assess_id()=='16'">Assessment Drill Down</a></li>
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/auto_manual" data-bind="visible: assess_id()=='16'">Automation vs Manual Coverage %</a></li>
+		          <li class="divider" data-bind="visible: assess_id()=='16'"></li>
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/dfarsCounts" data-bind="visible: assess_id()=='16'">DFARS and Non-DFARS Control Counts</a></li>
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/dfarsCompliant" data-bind="visible: assess_id()=='16'">DFARS Compliant Charts</a></li>
+		          <li class="divider" data-bind="visible: assess_id()=='16'"></li>
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/scoreEffectiveness_Complexity" data-bind="visible: assess_id()=='16'">Average Score by Effectiveness and Complexity</a></li>
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/controlEffectiveness" data-bind="visible: assess_id()=='16'">Control Count by Effectiveness and User Impact</a></li>
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/countEffectiveness_Complexity" data-bind="visible: assess_id()=='16'">Control Count by Effectiveness and Complexity</a></li>
+		          <li><a role="menuitem" tabindex="-1" href="#/dashboard/mbta_scoring" data-bind="visible: assess_id()=='26'">Scoring by Control Category</a></li>
+		        </ul>
+		      </li>
+			</ul>
+
+		</div>
+	
+		<div id="dashboard-chart-area"></div>
+		
+    </div>
+</div>

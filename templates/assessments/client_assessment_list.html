@@ -1,15 +1,13 @@
 <div id="assessment-list" class="container">
 	<div class="panel panel-info">
-		<div class="panel-heading"><h3>Client Assessments</h3></div>
-		<div class="panel-body">
-        	<a href="#/createNewAssessment" id="add-assessment" role="button" class="btn btn-action pull-right"><span class="glyphicon glyphicon-plus"></span> New Assessment</a>
-		</div>
-<!-- 
-	  	<table class="table table-hover">
- -->
-  	    <table class="table table-striped table-bordered table-hover table-condensed instances">
+	  <div class="panel-heading"><h3>Client Assessments</h3></div>
+	  <div class="panel-body">
+        <a href="#/createNewAssessment" id="add-assessment" role="button" class="btn btn-action pull-right"><span class="glyphicon glyphicon-plus"></span> New Assessment</a>
+	  </div>
+
+  	  <table class="table table-striped table-bordered table-hover table-condensed instances">
   	    <thead>
-    	 <tr>
+ 		  <tr>
     	    <th><a href="#" class="sortable">Client</a></th>
   	        <th><a href="#" class="sortable">Start Date</a></th>
             <th><a href="#" class="sortable">Security Framework</a></th>
@@ -18,7 +16,7 @@
             <th><a href="#" class="sortable">% Complete</a></th>
             <th><a href="#" class="sortable">View details</a></th>
   	      </tr>
-  	    </thead>
+		</thead>
 
         <tbody data-bind="foreach: assessments">
 	  		<tr data-bind="attr:{'assess_id': client_assess_id, 'client_name': client_name, 'start_date': assessment_date, 'client_id': client_id,

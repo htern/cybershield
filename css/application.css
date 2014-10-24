@@ -15,9 +15,20 @@ h3 { color: #0e77b9; }
 a { text-decoration: none; }
 a:hover { text-decoration: none; }
 
-.btn { background: #0e77b9; background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1089d5), color-stop(100%, #0e77b9)); background: -webkit-linear-gradient(#1089d5, #0e77b9); background: -moz-linear-gradient(#1089d5, #0e77b9); background: -o-linear-gradient(#1089d5, #0e77b9); background: linear-gradient(#1089d5, #0e77b9); color: #fff; padding: 6px 30px; text-shadow: 0 1px 0 #052c45; }
+
+.btn { background: #0e77b9; background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1089d5), color-stop(100%, #0e77b9)); background: -webkit-linear-gradient(#1089d5, #0e77b9); background: -moz-linear-gradient(#1089d5, #0e77b9); background: -o-linear-gradient(#1089d5, #0e77b9); background: linear-gradient(#1089d5, #0e77b9); color: #fff; text-shadow: 0 1px 0 #052c45; }
 .btn:hover { color: #fff; }
-.btn.btn-cancel { background: #eceff1; background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #eeeeee)); background: -webkit-linear-gradient(#ffffff, #eeeeee); background: -moz-linear-gradient(#ffffff, #eeeeee); background: -o-linear-gradient(#ffffff, #eeeeee); background: linear-gradient(#ffffff, #eeeeee); color: #888; border: 1px solid #ddd; text-shadow: 0 1px 0 #fff; }
+.btn.btn-cancel { 
+  background: #eceff1; 
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #eeeeee)); 
+  background: -webkit-linear-gradient(#ffffff, #eeeeee); 
+  background: -moz-linear-gradient(#ffffff, #eeeeee); 
+  background: -o-linear-gradient(#ffffff, #eeeeee); 
+  background: linear-gradient(#ffffff, #eeeeee); 
+  color: #888; 
+  border: 1px solid #ddd; 
+  text-shadow: 0 1px 0 #fff; 
+}
 .btn.btn-success {
   color: #ffffff;
   background: #5cb85c;
@@ -231,4 +242,45 @@ td.toggleable .wrap { position: relative; display: block; width: 100%; }
 /* '' */
 .icon-configure:before { content: '\e807'; }
 
-/* '' */
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 30px;
+    right:30px;
+    display:none;
+}
+
+/* overwrite breadcrumb default settings */
+.breadcrumb > li + li:before {
+	content: none;
+}
+
+.btn-label {
+	position: relative;
+	left: -12px;
+	display: inline-block;
+	padding: 6px 12px;
+	background: rgba(0,0,0,0.15);
+	border-radius: 3px 0 0 3px;
+}
+.btn-labeled {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.follow-up-flag {
+    cursor: pointer;
+}
+
+.blue {
+    color: blue;
+}
+.red {
+    color: red;
+}
+.flag {
+	color: rgb(248, 148, 6);
+}
+.grey {
+    color: grey;
+}

@@ -36,13 +36,51 @@
 					</div>
 				</div>
 
-
 			</fieldset>
 
 			<br>
 
 			<fieldset>
-				<legend><b>Question Details</b></legend>
+			
+				<legend><b>Question Details</b>
+					<span style="display:inline-block;margin-left:10px;font-size:small">
+						<ul class="breadcrumb">
+							<span class="glyphicon glyphicon-folder-open"> </span> &nbsp 
+							<li><a data-bind="attr: { href: assessment_url }"><span data-bind="text: standard_type"></span></a></li> &nbsp 
+							<span class="glyphicon glyphicon-circle-arrow-right"></span>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<b><span data-bind="text: identifier"></span></b>-<span data-bind="text: category_name"></span> <b class="caret"></b></a>
+					            <ul class="dropdown-menu" data-bind="foreach: categoryList" style="font-size:x-small">
+									<li><a data-bind="attr: { href: urlLink }">
+										<b><span data-bind="text: identifier"></span></b>-<span data-bind="text: control_category_name"></span></a>
+									</li>
+								</ul>
+							</li> &nbsp;
+							<span class="glyphicon glyphicon-circle-arrow-right"></span>
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<b><span data-bind="text: control_number"></span></b>
+									<span data-bind="text: control_name"></span> <b class="caret"></b></a>
+					            <ul class="dropdown-menu" data-bind="foreach: questionList" style="font-size:x-small">
+									<li><a data-bind="attr: { href: urlLink }">
+										<b><span data-bind="text: control_number"></span></b> 
+										<span data-bind="text: control_name"></span></a></li>
+					            </ul>
+					        </li>
+							
+							&nbsp;
+		    			    <a href="#follow-up-action" class="follow-up-flag" id="follow-up-flag-icon" 
+		    			    		title="Follow-up flag" data-toggle="tooltip" data-placement="right">
+		    			    	<span class="glyphicon glyphicon-flag grey" data-bind="visible: follow_up_flag()=='0'"></span>
+		    			    	<span class="glyphicon glyphicon-flag red" data-bind="visible: follow_up_flag()=='1'"></span>
+		    			    </a>
+
+						</ul>
+
+					</span>
+				</legend>
 
 				<div class="form-group">
 					<label for="showhidesupplement" class="col-sm-3 control-label"></label>
@@ -58,6 +96,26 @@
 						<div class="col-sm-9">
 					      	<div class="form-control-static" style="white-space: pre-wrap;" 
 					      		data-bind="html: supplemental">
+					      	</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<label for="showhide_assess_method" class="col-sm-3 control-label"></label>
+					<div class="col-sm-9">
+						<a href="javascript:showOrHideAssessMethod();">show/hide Assessment Method</a>
+					</div>
+				</div>
+
+				<div id="showOrHideAssessMethod" style="display: none">
+
+					<div class="form-group">
+						<label for="assessment_method" class="col-sm-3 control-label">Assessment Method</label>
+						<div class="col-sm-9">
+					      	<div class="form-control-static" style="white-space: pre-wrap;" 
+					      		data-bind="html: assessment_method">
 					      	</div>
 						</div>
 					</div>
@@ -90,7 +148,7 @@
  					<div class="col-sm-2" data-bind="visible: !complete()">
 				      	<div class="alert alert-info">
 				        	<span style="text-align: center; vertical-align: middle;">
-				        		<h4><span data-bind="text: status"></span></span></h4>
+				        		<h4><span data-bind="text: status"></span></h4>
 				        	</span>
 				      	</div>
 					</div>
@@ -113,11 +171,13 @@
 				</div>
 
 				<div class="form-group">
+
 					<div class="col-sm-3">
+						<a data-bind="attr: { href: last_url }" role="button" class="btn btn-success pull-left">
+							<span class="glyphicon glyphicon-circle-arrow-left"></span> Back to Assessment</a>
 <!-- 
-			<a data-bind="attr: { href: last_url }" role="button" class="btn btn-success pull-left"><span class="glyphicon glyphicon-arrow-left"></span> back to Assessment2</a>
- -->
 				      	<button type="button" class="cancel btn btn-success"><span class="glyphicon glyphicon-arrow-left"></span> Back to Assessment</button>
+ -->
 					</div>
  					<div class="col-sm-4" data-bind="visible: !complete()">
 				      	<button type="button" class="mark btn btn-primary"><span class="glyphicon glyphicon-check"></span> Mark Control Complete</button>
@@ -175,10 +235,15 @@
 						<a href="#staff-responsible" data-toggle="modal" id="add-staff-responsible" 
 							role="button" class="btn btn-action pull-left">
 							<span class="glyphicon glyphicon-plus"></span> Add Employee Responsible</a>
-
+<!-- 
 				      	<button type="button" class="cancel btn btn-cancel pull-right">Cancel</button>
-				      	<div class="pull-right">&nbsp;</div>
 				      	<button type="button" class="update btn btn-default pull-right">Save and Continue</button>
+ -->
+				      	<button type="button" class="cancel btn btn-cancel btn-labeled pull-right">
+				      		<span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Cancel</button>
+				      	<div class="pull-right">&nbsp;</div>
+				      	<button type="button" class="update btn btn-primary btn-labeled pull-right">
+				      		<span class="btn-label"><i class="glyphicon glyphicon-save"></i></span>Save and Continue</button>
 					</div>
 				</div>
 
@@ -354,10 +419,24 @@
 	
 </div>
 
-
-<script language="javascript">
+<a id="back-to-top" href="#" class="btn btn-success back-to-top" role="button" 
+		title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
+	<span class="glyphicon glyphicon-chevron-up"></span>
+</a>
+ 
+<script type="text/javascript">
     function showOrHideSupplemental() {
         var div = document.getElementById("showOrHideSupplemental");
+        if (div.style.display == "block") {
+            div.style.display = "none";
+        }
+        else {
+            div.style.display = "block";
+        }
+    }
+
+    function showOrHideAssessMethod() {
+        var div = document.getElementById("showOrHideAssessMethod");
         if (div.style.display == "block") {
             div.style.display = "none";
         }
@@ -374,7 +453,27 @@
         else {
             div.style.display = "block";
         }
-    } 
+    }
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 500) {
+            $('#back-to-top').fadeIn();
+        } else {
+            $('#back-to-top').fadeOut();
+        }
+    });
+    
+    // scroll body to 440px on click
+    $('#back-to-top').click(function () {
+        $('#back-to-top').tooltip('hide');
+        $('body,html').animate({
+            scrollTop: 440
+        }, 800);
+        return false;
+    });
+    
+    $('#back-to-top').tooltip('show');
+    
 </script>
 
 

@@ -7,6 +7,7 @@ $app->post("/assessments", "createAssessment");
 $app->get("/assessments", "getClientAssessments");
 $app->get("/assessments/:client_id", "getClientAssessment");
 $app->get("/categories/:assessment_id", "getAssessmentSummary");
+$app->get("/categories/:assessment_id/:category_id", "getControlCategory");
 $app->get("/controlfamilies", "getControlFamilies");
 $app->get("/controlquestions/:id", "getControlQuestions");
 $app->get("/users", "getUsers");
@@ -17,6 +18,7 @@ $app->delete("/users/:username", "deleteUser");
 $app->get("/assessmentQuestions/:assess_id/:category_id", "getAssessmentQuestions");
 $app->get("/questions/:question_id", "getQuestion");
 $app->put("/questions/:question_id", "updateQuestion");
+$app->put("/followup/:question_id", "updateFollowUpQuestion");
 $app->get("/assessments/notes/:question_id", "getNotes");
 $app->post("/assessments/notes", "createNotes");
 $app->delete("/assessments/notes/:question_id/:assess_note_id", "deleteInterviewNotes");
@@ -454,6 +456,33 @@ function updateQuestion($id) {
 	}
 }
 
+function updateFollowupQuestion($id) {
+	$request = Slim::getInstance()->request();
+	$body = $request->getBody();
+	$question = json_decode($body);
+	$sql = "UPDATE assessment_question SET 
+				follow_up_flag = :follow_up_flag,
+				follow_up_with = :follow_up_with,
+				last_updated = :time_now,
+				last_touched = :last_touched
+			WHERE assess_question_id = :id
+			";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("follow_up_flag", $question->follow_up_flag);
+		$stmt->bindParam("follow_up_with", $question->follow_up_with);
+		$stmt->bindParam("time_now", $question->time_now);
+		$stmt->bindParam("last_touched", $question->last_touched);
+		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$db = null;
+		echo json_encode($question); 
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
 function getNotes($question_id) {
  	$sql = "SELECT assess_note_id, note_created_by, note_entry_date, notes
 		    FROM assessment_notes
@@ -646,7 +675,8 @@ function getAssessmentQuestions($assess_id, $category_id) {
 	$sql = "SELECT sc.control_number, sc.control_name, sc.control_desc, sc.supplemental, 
 				aq.assess_question_id, aq.control_id, aq.assess_question,
 				aq.response_notes, aq.status, aq.score, aq.assess_question_id, 
-				IF(aq.complete=0,'No','Yes') AS complete, sc.DFARS,
+				IF(aq.complete=0,'No','Yes') AS complete, 
+				aq.follow_up_flag, aq.follow_up_with, sc.DFARS,
   				CONCAT('#/questionDetails/',aq.assess_question_id) AS urlLink
             FROM assessment_question aq
             JOIN security_control sc ON (sc.control_id = aq.control_id)
@@ -785,9 +815,9 @@ function getAssessmentSummary($assessment_id) {
 		    LEFT JOIN control_function cf ON (cf.control_function_id = cc.control_function_id)
 		    LEFT JOIN security_control sc ON (sc.control_category_id = cc.control_category_id)
 		    LEFT JOIN assessment_question aq ON (aq.control_id = sc.control_id)
-		    LEFT JOIN (SELECT * FROM assessment_question WHERE complete) as ccs 
+		    LEFT JOIN (SELECT * FROM assessment_question s_aq WHERE s_aq.client_assess_id = :assessment_id AND s_aq.complete) as ccs 
 		    			ON (ccs.control_id = sc.control_id)
-		    LEFT JOIN (SELECT * FROM assessment_question WHERE status='In Progress') as inp 
+		    LEFT JOIN (SELECT * FROM assessment_question i_aq WHERE i_aq.client_assess_id = :assessment_id AND i_aq.status='In Progress') as inp 
 		    			ON (inp.control_id = sc.control_id)
 		    LEFT JOIN (SELECT * FROM security_control WHERE DFARS) as dfar 
 		    			ON (dfar.control_id = sc.control_id)
@@ -799,6 +829,46 @@ function getAssessmentSummary($assessment_id) {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
 		$stmt->bindParam("assessment_id", $assessment_id);
+		$stmt->execute();
+		$rs = $stmt->fetchAll(PDO::FETCH_OBJ);  
+		$db = null;
+		echo json_encode($rs); 
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getControlCategory($assessment_id, $category_id) {
+
+  	$sql = "SELECT cc.control_category_id, cc.identifier, control_category_name, 
+  				cf.control_function_name, 
+  				COUNT(DISTINCT aq.control_id) as controlCnt,
+  				COUNT(DISTINCT ccs.control_id) as completeCnt,
+  				COUNT(DISTINCT inp.control_id) as inProgressCnt,
+  				COUNT(DISTINCT dfar.control_id) as dfarsCnt,
+  				ROUND(SUM(aq.score)/COUNT(DISTINCT aq.control_id),2) as avg_score,
+  				CONCAT('#/assessmentQuestionList/',cc.control_category_id) AS urlLink,
+  				ROUND(COUNT(DISTINCT ccs.control_id)/COUNT(DISTINCT aq.control_id) * 100,2) AS complete_percentage
+		    FROM control_category cc
+		    LEFT JOIN control_function cf ON (cf.control_function_id = cc.control_function_id)
+		    LEFT JOIN security_control sc ON (sc.control_category_id = cc.control_category_id)
+		    LEFT JOIN assessment_question aq ON (aq.control_id = sc.control_id)
+		    LEFT JOIN (SELECT * FROM assessment_question s_aq WHERE s_aq.client_assess_id = :assessment_id AND s_aq.complete) as ccs 
+		    			ON (ccs.control_id = sc.control_id)
+		    LEFT JOIN (SELECT * FROM assessment_question WHERE status='In Progress') as inp 
+		    			ON (inp.control_id = sc.control_id)
+		    LEFT JOIN (SELECT * FROM security_control WHERE DFARS) as dfar 
+		    			ON (dfar.control_id = sc.control_id)
+		    WHERE aq.client_assess_id = :assessment_id AND
+                  sc.control_category_id = :category_id		    		
+		    GROUP BY cc.control_category_id, identifier, control_category_name, cf.control_function_name
+		    ORDER BY cc.control_category_id, identifier, control_category_name, cf.control_function_name
+			";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("assessment_id", $assessment_id);
+		$stmt->bindParam("category_id", $category_id);
 		$stmt->execute();
 		$rs = $stmt->fetchAll(PDO::FETCH_OBJ);  
 		$db = null;
@@ -861,10 +931,10 @@ function getQuestion($question_id) {
 				aq.manual_coverage, aq.manual_compliance, aq.manual_documentation, 
 				aq.manual_score, aq.manual_process,
 				aq.auto_coverage, aq.auto_compliance, aq.auto_documentation, 
-				aq.auto_score, aq.auto_process, 
-				aq.score, aq.status, aq.complete, aq.last_updated, aq.last_touched,
+				aq.auto_score, aq.auto_process, aq.score, aq.status, aq.complete, 
+				aq.follow_up_flag, aq.follow_up_with, aq.last_updated, aq.last_touched,
 				sc.control_number, sc.control_name, sc.control_desc, sc.supplemental, sc.DFARS,
-				ss.standard_type, ss.version_number
+				sc.assessment_method, ss.standard_type, ss.version_number
 			FROM assessment_question aq
 			JOIN security_control sc ON (sc.control_id = aq.control_id)
 			JOIN security_standard ss ON (ss.standard_id = sc.standard_id)

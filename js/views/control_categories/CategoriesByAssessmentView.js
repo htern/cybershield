@@ -28,19 +28,19 @@ function($, _, Backbone, controlFamilyTemplate, ControlCategoryModel, ko, kb) {
 		initialize: function() {
 			console.log("Initializing CategorieByAssessmentView");
 			
-		    var self = this;
-		    var categoryList = new ControlCategoryCollection();
-			
-		    var model = new Backbone.Model({
-	    		categories: categoryList,
-	    	});
-	    	
-	  	    this.viewModel = kb.viewModel(model);
-	  	    
-	  	    // binding viewModel to template
-	  	    $("#subTabPage").load('templates/control_categories/category_list_by_assessment.html', function() {
-//	    		ko.applyBindings(self.viewModel, $("#category-list").get(0));
-	    	});
+//		    var self = this;
+//		    var categoryList = new ControlCategoryCollection();
+//			
+//		    var model = new Backbone.Model({
+//	    		categories: categoryList,
+//	    	});
+//	    	
+//		    this.viewModel = kb.viewModel(model);
+//	  	    
+//	  	    // binding viewModel to template
+//	  	    $("#subTabPage").load('templates/control_categories/category_list_by_assessment.html', function() {
+////	    		ko.applyBindings(self.viewModel, $("#category-list").get(0));
+//	    	});
 		},
 
 	    refresh: function(clientAssessID) {
@@ -73,6 +73,8 @@ function($, _, Backbone, controlFamilyTemplate, ControlCategoryModel, ko, kb) {
 	    	
 	    	console.log(categoryList);
 	    	
+			var self = this;
+			
 		    var model = new Backbone.Model({
 		    	categories: categoryList,
 		    	assess_id: Session.get("Assessment:assess_id"),
@@ -87,8 +89,14 @@ function($, _, Backbone, controlFamilyTemplate, ControlCategoryModel, ko, kb) {
 				complete_percentage: Session.get("Assessment:complete_percentage"),
 		    });
 		    
+		    Session.set("categoryList",categoryList);
+
 			this.viewModel = kb.viewModel(model);
-			ko.applyBindings(this.viewModel, $("#category-list").get(0));
+			
+	  	    $("#subTabPage").load('templates/control_categories/category_list_by_assessment.html', function() {
+	  	    	ko.applyBindings(self.viewModel, $("#category-list").get(0));
+	  	    });
+	  	    
 	    },
 		
 	    events: {
@@ -102,6 +110,7 @@ function($, _, Backbone, controlFamilyTemplate, ControlCategoryModel, ko, kb) {
 	    	
 	    	Session.set("Category:control_category_id",$($row).attr("control_category_id"));
 	    	Session.set("Category:control_function_name", $($row).attr("control_function_name").trim());
+	    	Session.set("Category:identifier", $($row).attr("identifier").trim());
 	    	Session.set("Category:control_category_name", $($row).attr("control_category_name").trim());
 	    	Session.set("Category:controlCnt", $($row).attr("controlCnt").trim());
 	    	Session.set("Category:complete_percentage", $($row).attr("complete_percentage").trim());
@@ -118,7 +127,7 @@ function($, _, Backbone, controlFamilyTemplate, ControlCategoryModel, ko, kb) {
 		      var template = _.template(controlFamilyTemplate, {controlfamilies: controlfamilies.models});
 		      self.$el.html(template);
 		    }
-		  })
+		  });
 		  
 		  $('.controls-nav li').removeClass('active');
 		  $('.controls-nav li a[href="'+window.location.hash+'"]').parent().addClass('active');

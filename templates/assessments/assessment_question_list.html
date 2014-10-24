@@ -1,6 +1,6 @@
 <div id="question-list" class="container">
  	<div class="panel panel-info">
-		<div class="panel-heading"><h3><span data-bind="text: control_function_name"></span>: <span data-bind="text: control_category_name"></span></h3></div>
+		<div class="panel-heading"><h3><span data-bind="text: control_function_name"></span>: <span data-bind="text: category_identifier"></span>-<span data-bind="text: control_category_name"></span></h3></div>
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-5">
@@ -65,7 +65,9 @@
 			
 			<hr>
 
-			<a data-bind="attr: { href: last_url }" id="client-assessment" role="button" class="btn btn-success pull-left"><span class="glyphicon glyphicon-arrow-left"></span> Assessment Summary</a>
+			<a data-bind="attr: { href: last_url }" id="client-assessment"
+				role="button" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-circle-arrow-left"></span> Assessment Summary</a>
 		</div>
  
       <table class="table table-bordered table-condensed instances">
@@ -79,8 +81,15 @@
         </thead>
 
         <tbody data-bind="foreach: questions">
-			<tr>
-    			<td rowspan="2"><a data-bind="attr: { href: urlLink }"><span data-bind="text: control_number"></span></a></td>
+			<tr data-bind="attr:{'control_number': control_number, 'control_name': control_name, 'assess_question_id': assess_question_id, 'follow_up_with': follow_up_with }">
+    			<td rowspan="2">
+    				<a data-bind="attr: { href: urlLink }"><span data-bind="text: control_number"></span></a> &nbsp;
+    			    <a href="#follow-up-action" class="follow-up-flag" id="follow-up-flag-icon" 
+    			    		title="Follow-up flag" data-toggle="tooltip" data-placement="right">
+    			    	<span class="glyphicon glyphicon-flag grey" data-bind="visible: follow_up_flag()=='0'"></span>
+    			    	<span class="glyphicon glyphicon-flag red" data-bind="visible: follow_up_flag()=='1'"></span>
+    			    </a>
+    			</td>
     		    <td><a data-bind="attr: { href: urlLink }"><span data-bind="text: control_name"></span> <span class="label label-warning" data-bind="visible: DFARS()=='1'"><small>DFARS</small></span></a></td>
 	            <td rowspan="2"><span data-bind="text: status"></span></td>
 	            <td rowspan="2"><span data-bind="text: score"></span></td>
@@ -92,3 +101,9 @@
   	  </table>
     </div>
 </div>
+
+<script type="text/javascript">
+
+//$('.follow-up-flag').tooltip('show');
+
+</script>

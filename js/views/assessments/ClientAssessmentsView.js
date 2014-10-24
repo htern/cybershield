@@ -12,7 +12,7 @@ function($, _, Backbone, ClientAssessmentModel, ko, kb) {
 	var ClientAssessmentCollection = Backbone.Collection.extend({
 		initialize: function(client_id) {
 			console.log("ClientAssessmentCollection INIT options: ");
-			if (client_id) {
+			if (client_id > 0) {
 				this.client_id = client_id;
 			}
 		},

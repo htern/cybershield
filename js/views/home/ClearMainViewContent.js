@@ -9,6 +9,7 @@ define([
 
     render: function(){
       this.$el.html('');
+      $("#chartArea").html('');
     }
 
   });

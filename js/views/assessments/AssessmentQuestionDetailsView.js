@@ -17,6 +17,8 @@ define([
 	'views/questions/EmployeeResponsibleList',
 	'views/questions/ToolResponsibleDialog',
 	'views/questions/ToolResponsibleList',
+	'models/FollowUpFlagModel',
+	'views/questions/FollowUpDialog',
 	'knockout',
 	'knockback'
 ], 
@@ -27,24 +29,9 @@ function($, _, Backbone, AssessmentQuestionModel, EmployeeCollection,
 		ToolUtilizationModel, ToolUtilizationCollection,
 		InterviewNotesDialog, InterviewNotesList, 
 		EmployeeResponsibleDialog, EmployeeResponsibleList, 
-		ToolResponsibleDialog, ToolResponsibleList, ko, kb){
+		ToolResponsibleDialog, ToolResponsibleList,
+		FollowUpFlagModel, FollowUpDialog, ko, kb){
 
-//	var InterviewNotes = Backbone.Model.extend({
-//		initialize: function(options) {
-//			if (options) {
-//				this.question = options.question;
-//			}
-//		},
-//		defaults: {
-//			id: null,
-//			assess_question_id: null,
-//			note_created_by: "",
-//			note_entry_date: "",
-//			notes: ""
-//		},
-//		urlRoot: 'api/assessments/notes',
-//	});
-	
 	var AssessmentQuestionDetailsView = Backbone.View.extend({
 
 		el: $("#subTabPage"),
@@ -63,6 +50,7 @@ function($, _, Backbone, AssessmentQuestionModel, EmployeeCollection,
 		},
 
 	    refresh: function(question_id) {
+	    	
 	    	console.log("AssessmentQuestionView.refresh is called.");
 	    	this.question_id = question_id;
 	    	
@@ -85,6 +73,10 @@ function($, _, Backbone, AssessmentQuestionModel, EmployeeCollection,
 		    		console.log("error retrieving question");
 		    	}
 		    });
+		    
+	    	// start the page close to the top
+	    	$(window).scrollTop(440);
+
 	    },
 
 	    show: function(data) {
@@ -115,6 +107,10 @@ function($, _, Backbone, AssessmentQuestionModel, EmployeeCollection,
 	    		  {"val":0.9, "coverage":"90 %"}, {"val":1, "coverage":"100 %"} ];
 	    	this.questionItem.autoComplianceRating = [{"val":0,"optionName":"No"},{"val":1.5,"optionName":"Partially"},{"val":3,"optionName":"Yes"}];
 	    	this.questionItem.autoDocumentationRating = [{"val":0,"optionName":"No"},{"val":1,"optionName":"Partially"},{"val":2,"optionName":"Yes"}];
+	    	
+	    	// load the list of categories and questions for breadcrumb dropdown
+	    	this.questionItem.categoryList = Session.get("categoryList");
+	    	this.questionItem.questionList = Session.get("questionList");
 
 //	    	console.log(this.questionItem);
 	    	
@@ -159,9 +155,13 @@ function($, _, Backbone, AssessmentQuestionModel, EmployeeCollection,
 		    
 		    // set last url
 			this.viewModel.last_url = Session.get("Category:urlLink");
+			this.viewModel.assessment_url = Session.get("Assessment:urlLink");
+			this.viewModel.identifier = Session.get("Category:identifier");
+			this.viewModel.category_name = Session.get("Category:control_category_name");
+			this.viewModel.category_url = Session.get("Category:urlLink");
 			
+			console.log(this.viewModel);
 //			console.log("last_url: " + this.viewModel.last_url);
-
 
 		    $("#subTabPage").load('templates/assessments/assessment_question_details.html', function() {
 	    		ko.applyBindings(self.viewModel, $("#question-detail").get(0));
@@ -175,6 +175,7 @@ function($, _, Backbone, AssessmentQuestionModel, EmployeeCollection,
 		    
 		    // load interview notes
 		    this.loadInterviewNotes();
+
 	    },
 
 	    loadToolUtilization: function() {
@@ -250,7 +251,7 @@ function($, _, Backbone, AssessmentQuestionModel, EmployeeCollection,
 		    		self.showNotes(data);
 		    	},
 		    	error: function(data) {
-		    		console.log("error retrieving questionlist");
+		    		console.log("error retrieving noteslist");
 		    	}
 		    });
 	    },
@@ -272,7 +273,8 @@ function($, _, Backbone, AssessmentQuestionModel, EmployeeCollection,
 	      "click .mark, .unmark": "clickComplete",
 	      "click #add-interview-notes": "addNotes",
 	      "click #add-staff-responsible": "addStaffResponsible",
-	      "click #add-tool-responsible": "addToolResponsible"
+	      "click #add-tool-responsible": "addToolResponsible",
+	      "click #follow-up-flag-icon": "showFollowUpDialog"
 	    },
 
 	    clickComplete: function() {
@@ -282,6 +284,24 @@ function($, _, Backbone, AssessmentQuestionModel, EmployeeCollection,
 	    	//this.saveNotes();
 	    },
 	    
+	    showFollowUpDialog: function() {
+	    	console.log("Follow-up flag clicked!");
+	    	
+	    	var follow_up_with = this.questionItem.follow_up_with;
+	    	var control_number = this.questionItem.control_number
+
+			var followUpModel = new FollowUpFlagModel({
+									question_id: this.question_id, 
+									follow_up_with: follow_up_with,
+									control_number: control_number});
+
+			this.followUpView = new FollowUpDialog( {model: followUpModel, question_id: this.question_id} );
+
+	    	this.followUpView.show(this);
+	    	$('#follow-up-dialog').modal('show');
+	    	return false;
+	    },
+
 	    employeeModel: null,
 	    staffResponsibleView: null,
 	    

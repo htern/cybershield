@@ -1,0 +1,34 @@
+<!-- Modal -->
+<div class="modal" id="follow-up-dialog" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="panel-title" id="myModalLabel" style="color: #000099;">Follow Up Action
+					<span data-bind="text: control_number"></span>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<h5>Follow up notes:</h5>
+
+				<textarea class="form-control" rows=10 name="followup-notes" id="followup-notes" data-bind="text: follow_up_with" autofocus></textarea>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger clear-action pull-left" data-dismiss="modal">Clear Flag</button>
+				<button type="button" class="btn btn-primary save-action" data-dismiss="modal">Set Flag</button>
+				<button type="button" class="btn btn-cancel close-action" data-dismiss="modal" aria-hidden="true">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	$('#follow-up-dialog').on('shown.bs.modal', function () {
+	    $('#followup-notes').focus();
+	})
+
+</script>
